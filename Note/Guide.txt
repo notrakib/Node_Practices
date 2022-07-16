@@ -1,3 +1,7 @@
+JS code is non-blocking
+So callbacks and events are used to change the order
+of code execution
+
 Event loop starts automatically.
 
 The callback functions does not stop
