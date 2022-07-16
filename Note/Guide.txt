@@ -1,0 +1,11 @@
+Event loop starts automatically.
+
+The callback functions does not stop
+later parts of the code. They does work
+side by side.
+
+There is default separation method to separate
+different requests.
+
+writeFileSync() sends response before executing itself
+writeFile execute first and blocks rest of the code
