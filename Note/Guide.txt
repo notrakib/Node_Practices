@@ -13,3 +13,29 @@ different requests.
 
 writeFileSync() sends response before executing itself
 writeFile execute first and blocks rest of the code
+
+npm init
+nmp install nodemon
+sudo npm install nodemon -g
+npm install --save express
+npm install --save body-parser
+
+The good thing about local dependencies is that you can share 
+projects without the node_modules folder (where they are stored) 
+and you can run npm install in a project to then re-create that 
+node_modules folder. This allows you to share only your source code, 
+hence reducing the size of the shared project vastly.
+
+You could install nodemon globally if you wanted (this is NOT required 
+though - because we can just run it locally): npm install -g nodemon 
+would do the trick. Specifically the -g flag ensures that the package 
+gets added as a global package which you now can use anywhere on your 
+machine, directly from inside the terminal or command prompt.
+
+next() helps to go the next middleware
+
+app.use(bodyParser.urlencoded({extended:false}));
+{extended:false} for non-default features
+
+'get', 'post' or others look for exact match
+while 'use' only looks for the minimum match
