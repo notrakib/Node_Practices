@@ -40,3 +40,11 @@ app.use(bodyParser.urlencoded({extended:false}));
 
 'get', 'post' or others look for exact match
 while 'use' only looks for the minimum match
+
+Dynamic Routes
+router.get("/products/delete", shopController.getProducts);
+router.get("/products/:productId", shopController.getProducts);
+
+if delete route was in 2nd, it will never be fired
+
+Json file cant be empty
