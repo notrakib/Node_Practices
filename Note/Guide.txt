@@ -20,6 +20,7 @@ sudo npm install nodemon -g
 npm install --save express
 npm install --save body-parser
 npm install --save ejs pug express-handlebars
+npm install --save mysql2
 
 The good thing about local dependencies is that you can share 
 projects without the node_modules folder (where they are stored) 
@@ -48,3 +49,7 @@ router.get("/products/:productId", shopController.getProducts);
 if delete route was in 2nd, it will never be fired
 
 Json file cant be empty
+
+MySql community and MySql workBench downloads
+sudo mysql -u root -p
+Addy@789**$
