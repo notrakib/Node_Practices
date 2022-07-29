@@ -21,6 +21,7 @@ npm install --save express
 npm install --save body-parser
 npm install --save ejs pug express-handlebars
 npm install --save mysql2
+npm install sequelize
 
 The good thing about local dependencies is that you can share 
 projects without the node_modules folder (where they are stored) 
@@ -53,3 +54,20 @@ Json file cant be empty
 MySql community and MySql workBench downloads
 sudo mysql -u root -p
 Addy@789**$
+
+sequelize.sync() automatic creates table if not exists
+
+Product.findAll({ where: { id: prodId } })
+Product.findById(prodId)
+Product.findAll()
+
+Product.findByPk(prodId)
+    .then((product) =>             [Promise 1]
+      {return product.save()})     [Promise 2]
+    .then(() => {
+      console.log("Done!");        {prints both promise}
+    })
+    .catch();
+
+req.user.getProducts()
+req.user.getProducts({where:{id:prodId}})
