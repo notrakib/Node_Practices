@@ -1,0 +1,30 @@
+<%- include('./header.ejs') %>
+
+    </head>
+    <title>
+        <%= pageTitle %>
+    </title>
+
+    <body>
+        <%- include('./navbar.ejs') %>
+
+            <% if (products.length> 0) { %>
+                <% for (let every of products) { %>
+                    <form action="/add-cartItem" method="POST">
+                        <div>
+                            <p>Product Name: <%= every.title %>
+                            </p>
+                            <p>Price: <%= every.price %>
+                            </p>
+                            <p>Qunatity</p>
+                            <input type="number" name="qty">
+                            <input type="hidden" value="<%= every.productId %>" name="prodId">
+                            <button type="submit">Add</button>
+                        </div>
+                    </form>
+                    <% } %>
+                        <% } else {%>
+                            <p>No Products Available</p>
+                            <% } %>
+
+    </body>

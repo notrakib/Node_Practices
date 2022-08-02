@@ -58,7 +58,7 @@ Addy@789**$
 sequelize.sync() automatic creates table if not exists
 
 Product.findAll({ where: { id: prodId } })
-Product.findById(prodId)
+Product.findByPk(prodId)
 Product.findAll()
 
 Product.findByPk(prodId)
@@ -71,3 +71,8 @@ Product.findByPk(prodId)
 
 req.user.getProducts()
 req.user.getProducts({where:{id:prodId}})
+
+In Middleware res.redirect() is must for POST request
+
+'getX' is not for templates and returns object
+It is for further work returns array

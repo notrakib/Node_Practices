@@ -1,0 +1,43 @@
+<%- include('./header.ejs') %>
+
+    </head>
+    <title>
+        <%= pageTitle %>
+    </title>
+
+    <body>
+        <%- include('./navbar.ejs') %>
+
+            <% for (let order of orderedProducts){ %>
+                <h1>Order Id: <%= order.orderId %>
+                </h1>
+                <% let sum=0 %>
+
+                    <% for (var i=0;i<order.items[0].length;i++) { %>
+                        <% for (var j=0;j<products.length;j++) { %>
+                            <% if (order.items[0][i].productProductId===products[j].productId) {%>
+                                <div>
+                                    <p>Product Name: <%= products[j].title %>
+                                    </p>
+                                    <p>Price: <%= products[j].price %>
+                                    </p>
+                                    <p>Quantity: <%= order.items[0][i].quantity %>
+                                    </p>
+                                    <h3>Total: <%= order.items[0][i].quantity* products[j].price %>
+                                    </h3>
+
+                                    <% sum=sum+ order.items[0][i].quantity* products[j].price %>
+
+                                </div>
+
+                                <% } %>
+                                    <% } %>
+                                        <% } %>
+                                            <h2>Sub Total: <%= sum %>
+                                            </h2>
+
+                                            <% }%>
+
+
+    </body>
+    </body>

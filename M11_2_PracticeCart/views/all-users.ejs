@@ -1,0 +1,28 @@
+<%- include('./header.ejs') %>
+
+    </head>
+    <title>
+        <%= pageTitle %>
+    </title>
+
+    <body>
+        <%- include('./navbar.ejs') %>
+            <% if (users.length> 0) { %>
+                <div>
+                    <% for (let every of users) { %>
+                        <p>First Name: <%= every.fname %>
+                        </p>
+                        <p>Last Name: <%= every.lname %>
+                        </p>
+                        <p>Email: <%= every.email %>
+                        </p>
+                        <p>Phone: <%= every.phone %>
+                        </p>
+                        <p>Password: <%= every.password %>
+                        </p>
+                        <% } %>
+                </div>
+                <% } else {%>
+                    <p>No Users Available</p>
+                    <% } %>
+    </body>

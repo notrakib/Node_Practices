@@ -1,0 +1,25 @@
+<%- include('./header.ejs') %>
+
+    </head>
+    <title>
+        <%= pageTitle %>
+    </title>
+
+    <body>
+        <%- include('./navbar.ejs') %>
+            <% if (carts.length> 0) { %>
+                <div>
+                    <% for (let every of carts) { %>
+                        <h1>Carts</h1>
+                        <p>Cart Id: <%= every.cartId %>
+                        </p>
+                        <p>User Id: <%= every.userUserId %>
+                        </p>
+                        <p>Sub Total: <%= every.subTotal%>
+                        </p>
+                        <% } %>
+                </div>
+                <% } else {%>
+                    <p>No Cart Available</p>
+                    <% } %>
+    </body>

@@ -1,0 +1,26 @@
+<%- include('./header.ejs') %>
+
+    </head>
+    <title>
+        <%= pageTitle %>
+    </title>
+
+    <body>
+        <%- include('./navbar.ejs') %>
+            <% if (products.length> 0) { %>
+                <div>
+                    <% for (let every of products) { %>
+                        <p>Product Name: <%= every.title %>
+                        </p>
+                        <p>Price: <%= every.price %>
+                        </p>
+                        <p>Category: <%= every.category %>
+                        </p>
+                        <p>Description: <%= every.description %>
+                        </p>
+                        <% } %>
+                </div>
+                <% } else {%>
+                    <p>No Products Available</p>
+                    <% } %>
+    </body>
