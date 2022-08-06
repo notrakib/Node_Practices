@@ -22,6 +22,8 @@ npm install --save body-parser
 npm install --save ejs pug express-handlebars
 npm install --save mysql2
 npm install sequelize
+npm install --save mongodb
+npm install --save mongoose
 
 The good thing about local dependencies is that you can share 
 projects without the node_modules folder (where they are stored) 
@@ -76,3 +78,18 @@ In Middleware res.redirect() is must for POST request
 
 'getX' is not for templates and returns object
 It is for further work returns array
+
+mongodb
+db = getDb()
+db.collection('a').collection('a').insertOne(this).then().catch()
+
+db.collection('a').collection('a').updateOne({_id:new mongodb.ObjectId(id)}, {$set:this }).then().catch()
+
+return db.collection('a').find().toArray().then().catch()
+or
+return db.collection('a').find().next().then().catch()
+
+const mongodb = require('mongodb')
+db.collection('a').find({_id:new mongodb.ObjectId(id)})
+
+db.collection('a').deleteOne({_id:new mongodb.ObjectId(id)}).then().catch()

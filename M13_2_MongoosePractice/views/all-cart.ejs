@@ -1,0 +1,47 @@
+<%- include('./header.ejs') %>
+
+    </head>
+    <title>
+        <%= pageTitle %>
+    </title>
+
+    <body>
+        <%- include('./navbar.ejs') %>
+            <% if (cartItems.length !=0) { %>
+
+                <h1>User Name: <%= cartItems[0].userId.name %>
+                </h1>
+                <h1>User Email: <%= cartItems[0].userId.email %>
+                </h1>
+                <% let sum=0 %>
+                    <% for (let item of cartItems){ %>
+                        <% sum=sum+item.total %>
+                            <div>
+                                <p>Product: <%= item.productId.title %>
+                                </p>
+                                <p>Price: <%= item.productId.price %>
+                                </p>
+                                <p>Quantity: <%= item.quantity %>
+                                </p>
+
+                                <form action="/add-cart" method="POST">
+                                    <label for="edit">Edit quantity: </label>
+                                    <input id="edit" type="number" name="edit" min="<%= -item.quantity %>">
+                                    <input type="hidden" id="edit" value="<%= item.productId.price %>" name="price">
+                                    <input type="hidden" id="edit" value="<%= item.productId._id %>" name="prodId">
+                                    <button type="submit">Edit</button>
+                                </form>
+
+                                <p>Total: <%= item.total %>
+                            </div>
+                            <% } %>
+                                <h2>To Pay: <%= sum %>
+                                </h2>
+                                <form action="/order" method="POST">
+                                    <button type="submit">Order</button>
+                                </form>
+                                <% } else { %>
+                                    <h3>No cart item added</h3>
+                                    <% } %>
+
+    </body>
