@@ -13,7 +13,6 @@ const routeProduct = require("./routes/product");
 const routeCart = require("./routes/cart");
 const routeOthers = require("./routes/others");
 const routeOrder = require("./routes/order");
-const routeAdmin = require("./routes/admin");
 const OrderDetails = require("./models/orderDetails");
 
 const app = express();
@@ -37,17 +36,10 @@ app.use(routeUser);
 app.use(routeProduct);
 app.use(routeCart);
 app.use(routeOrder);
-app.use(routeAdmin);
 app.use(routeOthers);
-
-User.hasOne(Manager);
-Manager.belongsTo(User);
 
 User.hasOne(Cart);
 Cart.belongsTo(User);
-
-Cart.belongsToMany(Product, { through: CartDetails });
-Product.belongsToMany(Cart, { through: CartDetails });
 
 CartDetails.belongsTo(Product);
 Product.hasMany(CartDetails);
@@ -58,11 +50,11 @@ CartDetails.belongsTo(Cart);
 User.hasMany(Order);
 Order.belongsTo(User);
 
-CartDetails.hasOne(OrderDetails);
-OrderDetails.belongsTo(CartDetails);
-
 Order.hasMany(OrderDetails);
 OrderDetails.belongsTo(Order);
+
+Product.hasMany(OrderDetails);
+OrderDetails.belongsTo(Product);
 
 sequelize
   .sync()
@@ -79,13 +71,10 @@ sequelize
         password: "pass",
       });
     }
-    return user;
   })
-
-  // .then((user) => {
-  //   return user.createCart({ subTotal: 0 });
-  // })
-
+  .then((user) => {
+    if (user) return user.createCart();
+  })
   .then((result) => {
     app.listen(3000);
   })

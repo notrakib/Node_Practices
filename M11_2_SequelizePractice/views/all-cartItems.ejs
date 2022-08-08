@@ -1,0 +1,53 @@
+<%- include('./header.ejs') %>
+
+    </head>
+    <title>
+        <%= pageTitle %>
+    </title>
+
+    <body>
+        <%- include('./navbar.ejs') %>
+
+            <h1>User First Name: <%= cartDetails.user.fname %>
+            </h1>
+            <h1>User Last Name: <%= cartDetails.user.lname %>
+            </h1>
+
+            <% if (cartDetails.cartDetails.length> 0) { %>
+
+                <% let sum=0 %>
+
+                    <% for (var i=0;i<cartDetails.cartDetails.length;i++) { %>
+                        <div>
+                            <p>Product Name: <%= cartDetails.cartDetails[i].product.title %>
+                            </p>
+                            <p>Price: <%= cartDetails.cartDetails[i].product.price %>
+                            </p>
+                            <p>Quantity: <%= cartDetails.cartDetails[i].quantity %>
+                            </p>
+                            <form action="/edit-cartItem" method="POST">
+                                <label for="edit">Edit Quantity</label>
+                                <input id="edit" type="number" , name="edit"
+                                    min="<%= -cartDetails.cartDetails[i].quantity %>">
+                                <input type="hidden" name="price"
+                                    value="<%= cartDetails.cartDetails[i].product.price %>">
+                                <input type="hidden" name="cartDetailId"
+                                    value="<%= cartDetails.cartDetails[i].cartDetailId %>">
+                                <button type="submit">Edit</button>
+                            </form>
+                            <p>Total: <%= cartDetails.cartDetails[i].total %>
+                            </p>
+
+                        </div>
+                        <% sum=sum+cartDetails.cartDetails[i].total %>
+                            <% } %>
+
+                                <h2>To Pay: <%= sum %>
+                                </h2>
+                                <form action="/order" method="POST">
+                                    <button type="submit">Order</button>
+                                </form>
+                                <% } else { %>
+                                    <h3>No item added</h3>
+                                    <% } %>
+    </body>

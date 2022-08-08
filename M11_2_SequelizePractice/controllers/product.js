@@ -21,11 +21,3 @@ exports.postAddProduct = (req, res, next) => {
     })
     .then((err) => console.log(err));
 };
-
-exports.getProducts = (req, res, next) => {
-  Product.findAll()
-    .then((products) => {
-      res.render("all-products", { pageTitle: "All Products", products });
-    })
-    .then((err) => console.log(err));
-};

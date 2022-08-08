@@ -16,9 +16,14 @@
                             </p>
                             <p>Price: <%= every.price %>
                             </p>
+                            <p>Category: <%= every.category %>
+                            </p>
+                            <p>Description: <%= every.description %>
+                            </p>
                             <p>Qunatity</p>
-                            <input type="number" name="qty">
+                            <input type="number" name="qty" min="1">
                             <input type="hidden" value="<%= every.productId %>" name="prodId">
+                            <input type="hidden" value="<%= every.price %>" name="price">
                             <button type="submit">Add</button>
                         </div>
                     </form>

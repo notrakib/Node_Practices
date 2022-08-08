@@ -1,0 +1,47 @@
+<%- include('./header.ejs') %>
+
+    </head>
+    <title>
+        <%= pageTitle %>
+    </title>
+
+    <body>
+        <%- include('./navbar.ejs') %>
+
+            <h1>
+                <%= orderDetails[0].user.fname %>
+            </h1>
+            <h1>
+                <%= orderDetails[0].user.lname %>
+            </h1>
+
+            <% if (orderDetails.length>0) { %>
+
+                <% for (var i=0;i<orderDetails.length;i++) { %>
+                    <% let sum=0 %>
+                        <% for (var j=0;j<orderDetails[i].orderDetails.length;j++) { %>
+                            <div>
+                                <p>Product Name: <%= orderDetails[i].orderDetails[j].product.title %>
+                                </p>
+                                <p>Price: <%= orderDetails[i].orderDetails[j].product.price %>
+                                </p>
+                                <p>Quantity: <%= orderDetails[i].orderDetails[j].quantity %>
+                                </p>
+                                <h3>Total: <%= orderDetails[i].orderDetails[j].subTotal %>
+                                </h3>
+
+                                <% sum=sum+ orderDetails[i].orderDetails[j].subTotal %>
+                            </div>
+
+                            <% } %>
+
+                                <h2>To Pay: <%= sum %>
+                                </h2>
+                                <% } %>
+                                    <% } else {%>
+                                        <p>No order has been confirmed yet</p>
+                                        <% } %>
+
+
+    </body>
+    </body>
