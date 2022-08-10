@@ -24,6 +24,11 @@ npm install --save mysql2
 npm install sequelize
 npm install --save mongodb
 npm install --save mongoose
+npm install --save express-session
+npm install --save connect-mongodb-session
+npm install --save bcryptjs
+npm install --save csurf
+npm install --save connect-flash
 
 The good thing about local dependencies is that you can share 
 projects without the node_modules folder (where they are stored) 
@@ -93,3 +98,16 @@ const mongodb = require('mongodb')
 db.collection('a').find({_id:new mongodb.ObjectId(id)})
 
 db.collection('a').deleteOne({_id:new mongodb.ObjectId(id)}).then().catch()
+
+app.use((req, res, next) => {
+  User.findByPk(1)
+    .then((user) => {
+      req.user = user;
+      next();
+    })
+    .catch();
+});
+
+Every request assign this req.user
+If we set an header then only for that link
+this req.user will be assigned

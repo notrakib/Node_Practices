@@ -1,0 +1,22 @@
+<%- include('./header.ejs') %>
+
+    </head>
+    <title>
+        <%= pageTitle %>
+    </title>
+
+    <body>
+        <%- include('./navbar.ejs') %>
+            <h1>Sign up</h1>
+            <form action="/signup" method="POST">
+
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password">
+                <input type="hidden" value="<%= csrfToken %>" name="_csrf">
+                <button type="submit">Sign up</button>
+            </form>
+    </body>
