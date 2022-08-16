@@ -1,0 +1,38 @@
+<nav>
+    <ul>
+        <li>
+            <a href="/all-users">Users</a>
+        </li>
+        <li>
+            <a href="/add-cart">Products</a>
+        </li>
+        <li>
+            <a href="/all-cart">Cart</a>
+        </li>
+        <li>
+            <a href="/order">Order</a>
+        </li>
+        <li>
+            <a href="/signup">Sign up</a>
+        </li>
+        <li>
+            <a href="/add-product">Add Product</a>
+        </li>
+        <% if(isAuthenticated!==true) {%>
+            <li>
+                <a href="/login">Login</a>
+            </li>
+            <% } %>
+
+                <% if(isAuthenticated===true) {%>
+                    <li>
+                        <form action="/logout" method="post">
+                            <input type="hidden" value="<%= csrfToken %>" name="_csrf">
+                            <button type="submit">Logout</button>
+
+                        </form>
+                    </li>
+                    <% } %>
+
+    </ul>
+</nav>

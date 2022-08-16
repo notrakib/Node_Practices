@@ -24,7 +24,6 @@ exports.postSignup = (req, res, next) => {
   const error = validationResult(req);
 
   if (!error.isEmpty()) {
-    console.log(error.array());
     return res.render("signup", {
       pageTitle: "Sign up",
       errormsg: error.array()[0].msg,
@@ -37,15 +36,15 @@ exports.postSignup = (req, res, next) => {
     });
   }
 
-  bcrypt
-    .hash(password, 12)
-    .then((hashedpassword) => {
-      return User.create({ name, email, password: hashedpassword });
-    })
-    .then(() => {
-      res.redirect("/login");
-    })
-    .catch((err) => console.log(err));
+  // bcrypt
+  //   .hash(password, 12)
+  //   .then((hashedpassword) => {
+  //     return User.create({ name, email, password: hashedpassword });
+  //   })
+  //   .then(() => {
+  //     res.redirect("/login");
+  //   })
+  //   .catch((err) => {return next(new Error(err));});
 };
 
 exports.getUsers = (req, res, next) => {
@@ -53,7 +52,7 @@ exports.getUsers = (req, res, next) => {
     .then((users) => {
       res.render("all-users", { pageTitle: "All Users", users });
     })
-    .then((err) => console.log(err));
+    .catch();
 };
 
 exports.getLogin = (req, res, next) => {
@@ -78,7 +77,7 @@ exports.postLogin = (req, res, next) => {
             if (matched) {
               req.session.user = user;
               req.session.isAuthenticated = true;
-              return req.session.save();
+              req.session.save();
             } else {
               req.flash("error", "Invalid Password");
               return res.redirect("/login");
@@ -87,7 +86,7 @@ exports.postLogin = (req, res, next) => {
           .then(() => res.redirect("/"));
       }
     })
-    .catch((err) => console.log(err));
+    .catch();
 };
 
 exports.postLogout = (req, res, next) => {
@@ -145,9 +144,7 @@ exports.getResetPassword = (req, res, next) => {
         });
       }
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch();
 };
 
 exports.postResetPassword = (req, res, next) => {
@@ -168,7 +165,5 @@ exports.postResetPassword = (req, res, next) => {
         });
       }
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch();
 };

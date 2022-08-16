@@ -30,6 +30,7 @@ npm install --save bcryptjs
 npm install --save csurf
 npm install --save connect-flash
 npm install --save express-validator
+npm install --save multer
 
 The good thing about local dependencies is that you can share 
 projects without the node_modules folder (where they are stored) 
@@ -114,3 +115,14 @@ If we set an header then only for that link
 this req.user will be assigned
 
 custom throw an error or promise
+
+
+try-catch for sync code
+then-catch for async code
+This error handling lead to execute rest of the code without stopping the server
+
+return skips rest of the code in a middleware
+while next() pass the execution from one middleware to another
+
+throw new Error("Dummy");  for async/async code
+return next(new Error(err));  for async code
