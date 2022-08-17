@@ -1,0 +1,17 @@
+<% let count=0 %>
+    <% if(hasPrev===true) { %>
+        <a href="?page=<%= prev %>">
+            prev
+        </a>
+        <% } %>
+            <% for(let i=1;i<=numberofLoop && i<(lpp+1);i++) { %>
+                <a href="?page=<%= prev+i %>">
+                    <%= prev+i %>
+                </a>
+
+                <% } %>
+                    <% if(hasNext===true) { %>
+                        <a href="?page=<%= next %>">
+                            next
+                        </a>
+                        <% } %>
