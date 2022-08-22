@@ -1,6 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
+
+/MERN/Backend/node_modules
+/MERN/Frontend/node_modules
+
 /Z_Packages
 /node_modules
 /.pnp

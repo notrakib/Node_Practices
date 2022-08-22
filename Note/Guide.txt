@@ -31,6 +31,7 @@ npm install --save csurf
 npm install --save connect-flash
 npm install --save express-validator
 npm install --save multer
+npm install --save jsonwebtoken
 
 The good thing about local dependencies is that you can share 
 projects without the node_modules folder (where they are stored) 
@@ -126,3 +127,24 @@ while next() pass the execution from one middleware to another
 
 throw new Error("Dummy");  for async/async code
 return next(new Error(err));  for async code
+
+app.use(bodyParser.urlencoded({ extended: false }));  //for html form
+app.use(bodyParser.json());      //for json data
+
+CORS error happens when front and back runs on different server
+
+res.render, res.redirect, res.json() send response
+res.setHeader does not send response 
+
+json cannot carry image data so we need JS form
+const formData = new FormData()
+formData.append('title',obj.title)
+(no header needs)
+
+jwt.decode()
+jwt.verify()
+
+To send token with every request we cannot send it within get req
+as it doesnot has any body, only post req has body
+
+then(()=>{throw Error('Error!')}).catch(err=>{next(err)})
