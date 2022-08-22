@@ -1,6 +1,7 @@
-import { Fragment, useRef } from "react";
+import { Fragment, useRef, useState } from "react";
 
 const Signup = () => {
+  const [error, setError] = useState();
   const nameRef = useRef();
   const emailRef = useRef();
   const passRef = useRef();
@@ -8,6 +9,10 @@ const Signup = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
+
+    if (passRef.current.value !== confirmPassRef.current.value) {
+      return setError("Invalid Confirm Password");
+    }
 
     fetch("http://localhost:8080/signup", {
       method: "POST",
@@ -18,22 +23,31 @@ const Signup = () => {
         name: nameRef.current.value,
         email: emailRef.current.value,
         password: passRef.current.value,
-        confirm_password: confirmPassRef.current.value,
       }),
     })
       .then((res) => {
         return res.json();
       })
       .then((returnObj) => {
-        console.log(returnObj);
+        if (returnObj.error) {
+          setError(returnObj.error.message);
+          return;
+        } else {
+          nameRef.current.value = "";
+          emailRef.current.value = "";
+          passRef.current.value = "";
+          confirmPassRef.current.value = "";
+          setError();
+        }
       })
-      .catch((err) => console.log(err));
+      .catch();
   };
 
   return (
     <Fragment>
       <form>
         <h1>Create an Account</h1>
+        {error && <p>{error}</p>}
         <div>
           <h3>Name</h3>
           <input ref={nameRef} type="text"></input>

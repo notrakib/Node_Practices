@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken");
+const jwtr = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
   const authHeader = req.get("Authorization");
@@ -11,13 +11,9 @@ module.exports = (req, res, next) => {
   const token = authHeader.split(" ")[1];
 
   try {
-    decoded = jwt.verify(token, "amiRakib");
-  } catch (error) {
-    throw error;
-  }
-
-  if (!decoded) {
-    throw Error("Token Expired");
+    decoded = jwtr.verify(token, "amiRakib");
+  } catch {
+    throw Error("Session Expired");
   }
 
   req.userId = decoded.userId;

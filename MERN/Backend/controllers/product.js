@@ -19,5 +19,5 @@ exports.postAddProduct = (req, res, next) => {
     .then((result) => {
       return res.status(200).json({ result });
     })
-    .catch();
+    .catch((err) => next(err));
 };

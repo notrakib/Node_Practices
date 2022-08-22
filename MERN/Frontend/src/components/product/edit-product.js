@@ -2,7 +2,7 @@ import { Fragment, useRef } from "react";
 
 const EditProduct = (props) => {
   const title = useRef();
-  //   const file = useRef();
+  const file = useRef();
   const price = useRef();
   const category = useRef();
   const description = useRef();
@@ -14,7 +14,7 @@ const EditProduct = (props) => {
     event.preventDefault();
     const newProduct = {
       title: title.current.value,
-      //   file: file.current.value,
+      file: file.current.value,
       price: price.current.value,
       category: category.current.value,
       description: description.current.value,
@@ -29,8 +29,8 @@ const EditProduct = (props) => {
       <form>
         <h3>Title</h3>
         <input ref={title} type="text"></input>
-        {/* <h3>Image</h3>
-        <input ref={file} type="file"></input> */}
+        <h3>Image</h3>
+        <input ref={file} type="file"></input>
         <h3>Price</h3>
         <input ref={price} type="number"></input>
         <h3>Category</h3>

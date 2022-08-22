@@ -1,7 +1,7 @@
 import { Fragment, useRef, useState } from "react";
 
 const AddProduct = () => {
-  const [error, seterror] = useState();
+  const [error, setError] = useState();
   const title = useRef();
   const file = useRef();
   const price = useRef();
@@ -32,11 +32,18 @@ const AddProduct = () => {
       })
       .then((returnObj) => {
         if (returnObj.error) {
-          seterror(returnObj.error.message);
-          return;
-        } else return;
+          return setError(returnObj.error.message);
+        } else {
+          title.current.value = "";
+          file.current.value = "";
+          price.current.value = "";
+          category.current.value = "";
+          description.current.value = "";
+          company.current.value = "";
+          setError();
+        }
       })
-      .catch((err) => console.log(err));
+      .catch();
   };
 
   return (
@@ -44,7 +51,6 @@ const AddProduct = () => {
       {error && <p>{error}</p>}
       {!error && (
         <Fragment>
-          {" "}
           <h1>Add Product</h1>
           <form onSubmit={submitHandler}>
             <h3>Title</h3>
@@ -61,7 +67,7 @@ const AddProduct = () => {
             <input ref={company} type="text"></input>
 
             <button>Add</button>
-          </form>{" "}
+          </form>
         </Fragment>
       )}
     </Fragment>

@@ -31,7 +31,7 @@ npm install --save csurf
 npm install --save connect-flash
 npm install --save express-validator
 npm install --save multer
-npm install --save jsonwebtoken
+npm install --save jwt-redis
 
 The good thing about local dependencies is that you can share 
 projects without the node_modules folder (where they are stored) 

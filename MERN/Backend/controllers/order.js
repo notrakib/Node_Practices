@@ -11,7 +11,7 @@ exports.getOrder = (req, res, next) => {
     .then((orders) => {
       return res.json({ orders });
     })
-    .catch();
+    .catch((err) => next(err));
 };
 
 exports.postOrder = (req, res, next) => {
@@ -33,8 +33,8 @@ exports.postOrder = (req, res, next) => {
     .then(() => {
       return Cart.deleteMany({ userId: req.userId });
     })
-    .then(() => res.redirect("/order"))
-    .catch();
+    .then((result) => res.json({ result }))
+    .catch((err) => next(err));
 };
 
 exports.getInvoice = (req, res, next) => {
@@ -67,5 +67,5 @@ exports.getInvoice = (req, res, next) => {
       pdfDoc.fontSize(18).text("Sub Total: " + order.subTotal);
       pdfDoc.end();
     })
-    .catch();
+    .catch((err) => next(err));
 };

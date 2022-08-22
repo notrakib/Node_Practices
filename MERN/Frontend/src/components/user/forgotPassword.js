@@ -1,60 +1,53 @@
 import { Fragment, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router";
 
-const Signin = () => {
+const ForgotPassword = () => {
   const [error, setError] = useState();
   const emailRef = useRef();
-  const passRef = useRef();
+  const navigate = useNavigate();
 
   const submitHandler = (event) => {
     event.preventDefault();
 
-    fetch("http://localhost:8080/login", {
+    fetch("http://localhost:8080/forgot-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: emailRef.current.value,
-        password: passRef.current.value,
       }),
     })
       .then((res) => {
         return res.json();
       })
       .then((returnObj) => {
+        console.log(returnObj);
         if (returnObj.error) {
           setError(returnObj.error.message);
           return;
         } else {
-          localStorage.setItem("token", returnObj.token);
-          emailRef.current.value = "";
-          passRef.current.value = "";
+          navigate(returnObj.link);
+          setError();
         }
       })
-      .catch((err) => console.log(err));
+      .catch();
   };
 
   return (
     <Fragment>
       <form>
-        <h1>Sign in</h1>
+        <h1>Enter Email</h1>
         {error && <p>{error}</p>}
         <div>
           <h3>Email</h3>
           <input ref={emailRef} type="email"></input>
         </div>
-        <div>
-          <h3>Password</h3>
-          <input ref={passRef} type="password"></input>
-        </div>
-        <NavLink to="/forgot-password">
-          <p>Forgot password?</p>
-        </NavLink>
-        <button onClick={submitHandler}>Sign in</button>
+
+        <button onClick={submitHandler}>Submit</button>
       </form>
     </Fragment>
   );
 };
 
-export default Signin;
+export default ForgotPassword;

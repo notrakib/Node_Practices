@@ -3,7 +3,7 @@ import ShowEachProduct from "./showEachProduct";
 
 const ShowProduct = () => {
   const [products, setProducts] = useState([]);
-  const [error, seterror] = useState();
+  const [error, setError] = useState();
 
   useEffect(() => {
     fetchProduct();
@@ -20,7 +20,7 @@ const ShowProduct = () => {
       })
       .then((returnObj) => {
         if (returnObj.error) {
-          seterror(returnObj.error.message);
+          setError(returnObj.error.message);
           return;
         } else {
           setProducts(returnObj.products);

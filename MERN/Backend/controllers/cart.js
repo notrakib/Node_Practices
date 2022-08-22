@@ -6,7 +6,7 @@ exports.getAddCart = (req, res, next) => {
     .then((products) => {
       return res.json({ products });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => next(err));
 };
 
 exports.postCart = (req, res, next) => {
@@ -43,10 +43,10 @@ exports.postCart = (req, res, next) => {
     .then(() => {
       return Cart.deleteMany({ quantity: 0 });
     })
-    .then(() => {
-      res.json();
+    .then((result) => {
+      res.json({ result });
     })
-    .catch();
+    .catch((err) => next(err));
 };
 
 exports.getCart = (req, res, next) => {
@@ -56,5 +56,5 @@ exports.getCart = (req, res, next) => {
     .then((cartItems) => {
       res.json({ cartItems });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => next(err));
 };

@@ -3,11 +3,33 @@ import EachCartItem from "./eachCartItem";
 
 const Cart = () => {
   const [cartitems, setCartitems] = useState([]);
-  const [error, seterror] = useState();
+  const [error, setError] = useState();
 
   useEffect(() => {
     fetchCartitems();
   }, []);
+
+  const OrderHandaler = async () => {
+    fetch("http://localhost:8080/order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((returnObj) => {
+        if (returnObj.error) {
+          return setError(returnObj.error.message);
+        } else {
+          setCartitems([]);
+          setError();
+        }
+      })
+      .catch();
+  };
 
   const fetchCartitems = async () => {
     fetch("http://localhost:8080/all-cart", {
@@ -20,13 +42,13 @@ const Cart = () => {
       })
       .then((returnObj) => {
         if (returnObj.error) {
-          seterror(returnObj.error.message);
+          setError(returnObj.error.message);
           return;
         } else {
           setCartitems(returnObj.cartItems);
         }
       })
-      .catch((err) => console.log(err));
+      .catch();
   };
 
   let subTotal = 0;
@@ -40,16 +62,23 @@ const Cart = () => {
       {error && <p>{error}</p>}
       {cartitems[0] !== undefined && <h3>Name: {cartitems[0].userId.name}</h3>}
       {!error &&
+        cartitems.length !== 0 &&
         cartitems.map((each) => (
           <EachCartItem
             key={each._id}
+            id={each.productId._id}
             title={each.productId.title}
             price={each.productId.price}
             quantity={each.quantity}
             total={each.total}
           />
         ))}
-      <h2>Pay: {subTotal}</h2>
+      {cartitems.length !== 0 && (
+        <Fragment>
+          <h2>Pay: {subTotal}</h2>
+          <button onClick={OrderHandaler}>Order</button>
+        </Fragment>
+      )}
     </Fragment>
   );
 };

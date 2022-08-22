@@ -3,7 +3,7 @@ import ShowEachOrder from "../components/order/showEachOrder";
 
 const OrderPage = () => {
   const [orders, setOrders] = useState([]);
-  const [error, seterror] = useState();
+  const [error, setError] = useState();
 
   useEffect(() => {
     fetchOrder();
@@ -20,7 +20,7 @@ const OrderPage = () => {
       })
       .then((returnObj) => {
         if (returnObj.error) {
-          seterror(returnObj.error.message);
+          setError(returnObj.error.message);
           return;
         } else {
           setOrders(returnObj.orders);
