@@ -1,4 +1,5 @@
 import { Fragment, useRef, useState } from "react";
+import { useNavigate } from "react-router";
 
 const Signup = () => {
   const [error, setError] = useState();
@@ -6,6 +7,7 @@ const Signup = () => {
   const emailRef = useRef();
   const passRef = useRef();
   const confirmPassRef = useRef();
+  const navigate = useNavigate();
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -37,6 +39,7 @@ const Signup = () => {
           emailRef.current.value = "";
           passRef.current.value = "";
           confirmPassRef.current.value = "";
+          navigate("/signin");
           setError();
         }
       })

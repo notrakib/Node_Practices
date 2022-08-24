@@ -1,10 +1,14 @@
 import { Fragment, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signedinAction } from "../../store/signin-slice";
 
-const Signin = () => {
+const Signin = (props) => {
   const [error, setError] = useState();
   const emailRef = useRef();
   const passRef = useRef();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -27,9 +31,20 @@ const Signin = () => {
           setError(returnObj.error.message);
           return;
         } else {
-          localStorage.setItem("token", returnObj.token);
           emailRef.current.value = "";
           passRef.current.value = "";
+          const signInfo = {
+            token: returnObj.token,
+            logoutTime: returnObj.userInfo.logoutTime,
+          };
+
+          dispatch(signedinAction.login(signInfo));
+
+          setTimeout(() => {
+            dispatch(signedinAction.logout());
+          }, returnObj.userInfo.logoutTime - +new Date());
+
+          navigate("/show-product?page=1");
         }
       })
       .catch((err) => console.log(err));

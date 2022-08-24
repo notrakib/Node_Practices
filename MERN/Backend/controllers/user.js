@@ -38,6 +38,7 @@ exports.postLogin = (req, res, next) => {
           userId: user._id,
           email: user.email,
           name: user.name,
+          logoutTime: +new Date() + 3600000,
         };
         return bcrypt.compare(password, user.password).then((matched) => {
           if (matched) {

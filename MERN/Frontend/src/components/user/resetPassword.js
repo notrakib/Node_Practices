@@ -1,11 +1,12 @@
 import { Fragment, useRef, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 const ResetPassword = () => {
   const [error, setError] = useState();
   const pass = useRef();
   const con_pass = useRef();
   const params = useParams();
+  const navigate = useNavigate();
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -27,11 +28,13 @@ const ResetPassword = () => {
         return res.json();
       })
       .then((returnObj) => {
-        console.log(returnObj);
         if (returnObj.error) {
           setError(returnObj.error.message);
           return;
-        } else setError();
+        } else {
+          navigate("/signin");
+          setError();
+        }
       })
       .catch();
   };

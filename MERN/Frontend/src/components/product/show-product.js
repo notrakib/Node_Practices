@@ -1,16 +1,17 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import ShowEachProduct from "./showEachProduct";
 
 const ShowProduct = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState({ products: [] });
   const [error, setError] = useState();
+  const array = [1, 2, 3, 4];
 
-  useEffect(() => {
-    fetchProduct();
-  }, []);
+  const search = useLocation().search;
+  let page = new URLSearchParams(search).get("page");
 
-  const fetchProduct = async () => {
-    fetch("http://localhost:8080/add-cart", {
+  const fetchProduct = useCallback(() => {
+    fetch("http://localhost:8080/add-cart?page=" + +page, {
       headers: {
         Authorization: "bearer " + localStorage.getItem("token"),
       },
@@ -23,17 +24,21 @@ const ShowProduct = () => {
           setError(returnObj.error.message);
           return;
         } else {
-          setProducts(returnObj.products);
+          setProducts(returnObj);
         }
       })
       .catch((err) => console.log(err));
-  };
+  }, [page]);
+
+  useEffect(() => {
+    fetchProduct();
+  }, [fetchProduct]);
 
   return (
     <Fragment>
       {error && <p>{error}</p>}
       {!error &&
-        products.map((each) => (
+        products.products.map((each) => (
           <ShowEachProduct
             key={each._id}
             id={each._id}
@@ -45,6 +50,19 @@ const ShowProduct = () => {
             category={each.category}
           />
         ))}
+      {products.hasPrev && <a href={"?page=" + products.prev}>prev</a>}
+
+      {array.map((num) => {
+        if (num <= products.numberofLoop && num < products.lpp + 1) {
+          return (
+            <a key={num} href={"?page=" + +(products.prev + num)}>
+              {products.prev + num}
+            </a>
+          );
+        } else return null;
+      })}
+
+      {products.hasNext && <a href={"?page=" + products.next}>next</a>}
     </Fragment>
   );
 };

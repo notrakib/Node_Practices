@@ -2,9 +2,35 @@ const Cart = require("../models/cart");
 const Product = require("../models/product");
 
 exports.getAddCart = (req, res, next) => {
+  const curpage = +req.query.page;
+  const limit = 2;
+  const lpp = 3;
+  let numofProds;
+
   Product.find()
-    .then((products) => {
-      return res.json({ products });
+    .countDocuments()
+    .then((numberofProducts) => {
+      numofProds = numberofProducts;
+    })
+    .then(() => {
+      Product.find()
+        .skip((curpage - 1) * limit)
+        .limit(limit)
+        .then((products) => {
+          res.json({
+            products,
+            hasPrev: curpage > lpp,
+            hasNext:
+              Math.floor((curpage - 1) / lpp) * lpp + +(lpp + 1) <=
+              numofProds / limit,
+            numberofLoop:
+              numofProds / limit - Math.floor((curpage - 1) / lpp) * lpp,
+            prev: Math.floor((curpage - 1) / lpp) * lpp,
+            next: Math.floor((curpage - 1) / lpp) * lpp + +(lpp + 1),
+            curpage,
+            lpp,
+          });
+        });
     })
     .catch((err) => next(err));
 };

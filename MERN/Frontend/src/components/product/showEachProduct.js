@@ -1,8 +1,10 @@
 import { Fragment, useRef, useState } from "react";
+import { useNavigate } from "react-router";
 
 const ShowEachProduct = (props) => {
   const [error, setError] = useState();
   const qty = useRef();
+  const navigate = useNavigate();
 
   const AddToCartHandaler = (event) => {
     event.preventDefault();
@@ -38,10 +40,15 @@ const ShowEachProduct = (props) => {
       .catch();
   };
 
+  const EditHandaler = (event) => {
+    event.preventDefault();
+    navigate("/edit-product/" + props.id);
+  };
+
   return (
     <Fragment>
       <h3>Title: {props.title}</h3>
-      <h3>Image: {props.image}</h3>
+      <img src={"http://localhost:8080/" + props.image} alt="ok"></img>
       <h3>Price: {props.price}</h3>
       <h3>Category: {props.category}</h3>
       <h3>Description: {props.description}</h3>
@@ -49,6 +56,7 @@ const ShowEachProduct = (props) => {
       {error && <p>{error}</p>}
       <input ref={qty} min="1" type="number"></input>
       <button onClick={AddToCartHandaler}>Add</button>
+      <button onClick={EditHandaler}>Edit</button>
     </Fragment>
   );
 };

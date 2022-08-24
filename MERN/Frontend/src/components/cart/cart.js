@@ -1,9 +1,11 @@
 import { Fragment, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import EachCartItem from "./eachCartItem";
 
 const Cart = () => {
   const [cartitems, setCartitems] = useState([]);
   const [error, setError] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchCartitems();
@@ -24,6 +26,7 @@ const Cart = () => {
         if (returnObj.error) {
           return setError(returnObj.error.message);
         } else {
+          navigate("/order");
           setCartitems([]);
           setError();
         }
@@ -53,9 +56,7 @@ const Cart = () => {
 
   let subTotal = 0;
 
-  {
-    cartitems.map((each) => (subTotal += each.total));
-  }
+  cartitems.map((each) => (subTotal += each.total));
 
   return (
     <Fragment>
