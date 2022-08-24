@@ -2,8 +2,6 @@
 
 # dependencies
 
-/MERN/Backend/node_modules
-/MERN/Frontend/node_modules
 
 /Z_Packages
 /node_modules

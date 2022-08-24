@@ -34,6 +34,18 @@ npm install --save express-validator
 npm install --save multer
 npm install --save jwt-redis
 
+npm run build
+npm install -g firebase-tools
+build
+y 
+n 
+n
+
+npx create-next-app
+npm run dev
+npm install next-redux-wrapper
+npm install redux-thunk
+
 The good thing about local dependencies is that you can share 
 projects without the node_modules folder (where they are stored) 
 and you can run npm install in a project to then re-create that 
