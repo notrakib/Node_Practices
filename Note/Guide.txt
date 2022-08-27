@@ -33,30 +33,21 @@ npm install --save connect-flash
 npm install --save express-validator
 npm install --save multer
 npm install --save jwt-redis
-
-npm run build
-npm install -g firebase-tools
-build
-y 
-n  
-n
+npm install --save helmet 
+npm install --save compression
+npm install --save morgan
 
 npx create-next-app
 npm run dev
 npm install next-redux-wrapper
 npm install redux-thunk
 
-The good thing about local dependencies is that you can share 
-projects without the node_modules folder (where they are stored) 
-and you can run npm install in a project to then re-create that 
-node_modules folder. This allows you to share only your source code, 
-hence reducing the size of the shared project vastly.
+To deploy nodemon.json is for server
+which has alternative also
+npm run start:dev
 
-You could install nodemon globally if you wanted (this is NOT required 
-though - because we can just run it locally): npm install -g nodemon 
-would do the trick. Specifically the -g flag ensures that the package 
-gets added as a global package which you now can use anywhere on your 
-machine, directly from inside the terminal or command prompt.
+For backend deployment if there is no image in server
+then it will gives CORS error
 
 next() helps to go the next middleware
 
@@ -80,40 +71,8 @@ Addy@789**$
 
 sequelize.sync() automatic creates table if not exists
 
-Product.findAll({ where: { id: prodId } })
-Product.findByPk(prodId)
-Product.findAll()
-
-Product.findByPk(prodId)
-    .then((product) =>             [Promise 1]
-      {return product.save()})     [Promise 2]
-    .then(() => {
-      console.log("Done!");        {prints both promise}
-    })
-    .catch();
-
-req.user.getProducts()
-req.user.getProducts({where:{id:prodId}})
-
-In Middleware res.redirect() is must for POST request
-
 'getX' is not for templates and returns object
 It is for further work returns array
-
-mongodb
-db = getDb()
-db.collection('a').collection('a').insertOne(this).then().catch()
-
-db.collection('a').collection('a').updateOne({_id:new mongodb.ObjectId(id)}, {$set:this }).then().catch()
-
-return db.collection('a').find().toArray().then().catch()
-or
-return db.collection('a').find().next().then().catch()
-
-const mongodb = require('mongodb')
-db.collection('a').find({_id:new mongodb.ObjectId(id)})
-
-db.collection('a').deleteOne({_id:new mongodb.ObjectId(id)}).then().catch()
 
 app.use((req, res, next) => {
   User.findByPk(1)
@@ -124,22 +83,8 @@ app.use((req, res, next) => {
     .catch();
 });
 
-Every request assign this req.user
-If we set an header then only for that link
-this req.user will be assigned
-
-custom throw an error or promise
-
-
-try-catch for sync code
-then-catch for async code
-This error handling lead to execute rest of the code without stopping the server
-
 return skips rest of the code in a middleware
 while next() pass the execution from one middleware to another
-
-throw new Error("Dummy");  for async/async code
-return next(new Error(err));  for async code
 
 app.use(bodyParser.urlencoded({ extended: false }));  //for html form
 app.use(bodyParser.json());      //for json data
@@ -161,3 +106,11 @@ To send token with every request we cannot send it within get req
 as it doesnot has any body, only post req has body
 
 then(()=>{throw Error('Error!')}).catch(err=>{next(err)})
+
+Node js does not care promises rather it is built with callback function
+
+export const Handlaer = ()=>{} is for multiple export
+export default Handlaer is for single export
+
+extraction import {Handlaer} from 'component/anon'
+extraction import Handlaer from 'component/anon'
