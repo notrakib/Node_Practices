@@ -36,6 +36,9 @@ npm install --save jwt-redis
 npm install --save helmet 
 npm install --save compression
 npm install --save morgan
+npm install --save socket.io
+npm install --save socket.io-client  (for client)
+npm install google-auth-library --save
 
 npx create-next-app
 npm run dev
@@ -114,3 +117,14 @@ export default Handlaer is for single export
 
 extraction import {Handlaer} from 'component/anon'
 extraction import Handlaer from 'component/anon'
+
+ ReadingList.findAll({
+    where: {
+      // userUserId,
+      [Op.or]: [
+        { readingStatus: "Reading" },
+        { readingStatus: "Start Reading" },
+      ],
+    },
+    include: [{ model: Book }],
+  })
